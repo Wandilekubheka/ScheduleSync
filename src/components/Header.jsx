@@ -1,0 +1,31 @@
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Ionicons } from '@expo/vector-icons';
+import {theme} from '../config/colors'
+const Header = ({darkMode}) => {
+  return (
+    <View style={styles.container}>
+      <Text style={{padding:30}}></Text>
+      <Text style={[styles.heading,{color:darkMode ? theme.white:theme.grey }]}>ScheduleSync</Text>
+      <TouchableOpacity style={styles.toggleButton} onPress={()=> {console.log(Date())}}>
+        <Ionicons  name="moon" size={24} color={darkMode ? theme.white:theme.grey } />
+      </TouchableOpacity>
+    </View>
+  )
+}
+
+export default Header
+
+const styles = StyleSheet.create({
+  container:{
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+  },
+  toggleButton:{
+    padding:15
+  },
+  heading:{
+    fontWeight:'700',
+    fontSize:18
+  }
+})
