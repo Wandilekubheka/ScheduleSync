@@ -4,12 +4,14 @@ import React, { useState } from "react";
 import { theme } from "../config/colors";
 import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { timePassed } from "../config/getTimePassed.js";
 
 import dayjs from "dayjs";
 
 const ActionButton = ({ darkMode }) => {
   const [isClocked, setIsClocked] = useState(false);
   const day = dayjs();
+  const dayOfWeek = day.format("dddd");
   const firstDay = async () => {
     let data = {
       Monday: 0,
@@ -21,33 +23,49 @@ const ActionButton = ({ darkMode }) => {
     };
 
     await AsyncStorage.setItem("data", JSON.stringify(data));
-    setIsClocked(true);
   };
   const checkIn = async () => {
-    const dayOfWeek = day.format("dddd");
-    if (dayOfWeek !== 'Sunday'){
-      let data = JSON.parse(await AsyncStorage.getItem("data"));
-      data[dayOfWeek] = day;
-      await AsyncStorage.mergeItem("data", JSON.stringify(data));
-      setIsClocked(true);
-    }
+    if (dayOfWeek !== "Monday") {
+      try {
+        let data = JSON.parse(await AsyncStorage.getItem("data"));
+        data[dayOfWeek] = day;
+        await AsyncStorage.mergeItem("data", JSON.stringify(data));
+        console.log(data);
 
+        setIsClocked(true);
+      } catch (err) {
+        alert(err);
+      }
+    }
   };
   const checkOut = async () => {
-    setIsClocked(false);
-    let data = JSON.parse(await AsyncStorage.getItem("data"));
-    data["Monday"] = 2;
-    console.log(data);
+    try {
+      let data = JSON.parse(await AsyncStorage.getItem("data"));
+      let start = data[dayjs().format("dddd")];
+      start = dayjs(start);
+      console.log(typeof start);
+      data[dayjs().format("dddd")] = timePassed(start, dayjs());
+      setIsClocked(false);
+      console.log(data);
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const clockButton = () => {
+    if (dayOfWeek === "Monday" && !isClocked) {
+      firstDay();
+      checkIn();
+    } else if (!isClocked) {
+      checkIn();
+    } else {
+      checkOut();
+    }
   };
 
   return (
     <View style={{ justifyContent: "center", alignItems: "center" }}>
-      <TouchableOpacity
-        onPress={() => {
-          isClocked ? checkOut() : checkIn();
-        }}
-        style={styles.container}
-      >
+      <TouchableOpacity onPress={() => clockButton()} style={styles.container}>
         <LinearGradient
           style={{ borderRadius: 10 }}
           colors={[theme.linearStart, theme.linearEnd]}

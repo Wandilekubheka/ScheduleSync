@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { theme } from "../config/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import dayjs from "dayjs";
-import { timePassed } from "./getTimePassed";
+import { timePassed } from "../config/getTimePassed.js";
 
 const width = Dimensions.get("screen").width * 0.6;
 const Clock = ({ darkMode }) => {
