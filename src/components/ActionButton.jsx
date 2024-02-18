@@ -10,58 +10,41 @@ import dayjs from "dayjs";
 const ActionButton = ({ darkMode }) => {
   const [isClocked, setIsClocked] = useState(false);
   const day = dayjs();
+  const firstDay = async () => {
+    let data = {
+      Monday: 0,
+      Tuesday: 0,
+      Wednesday: 0,
+      Thurdsday: 0,
+      Friday: 0,
+      Saturday: 0,
+    };
 
-  // const restartData = async (key,value) => {
-  //   try {
-  //     await AsyncStorage.setItem("appData", JSON.stringify({key:value}));
-  //     return data = await AsyncStorage.getItem("appData");
-  //   } catch (err) {
-  //     alert(err);
-  //   }
-  // };
-
-  // const mergeUsers = async () => {
-  //   try {
-  //     //save first user
-  //     await AsyncStorage.setItem("@MyApp_user", JSON.stringify(USER_1));
-
-  //     // merge USER_2 into saved USER_1
-  //     await AsyncStorage.mergeItem("@MyApp_user", JSON.stringify(USER_2));
-
-  //     // read merged item
-  //     const currentUser = await AsyncStorage.getItem("appData");
-
-  //     console.log(currentUser);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  const addStartToData = () => {
-    const days = dataList.filter(({ date }) => date === day.format("dddd"));
-    if (days.length === 0) {
-      setIsClocked(!isClocked);
-      dispatch(
-        addStartTime({
-          date: day.format("dddd"),
-          startTime: day.format("HH:MM"),
-          endTime: day.format("HH:MM"),
-        })
-      );
-    } else {
-      alert("started for the day...");
-    }
+    await AsyncStorage.setItem("data", JSON.stringify(data));
+    setIsClocked(true);
   };
-  const addEndToData = () => {
+  const checkIn = async () => {
+    const dayOfWeek = day.format("dddd");
+    if (dayOfWeek !== 'Sunday'){
+      let data = JSON.parse(await AsyncStorage.getItem("data"));
+      data[dayOfWeek] = day;
+      await AsyncStorage.mergeItem("data", JSON.stringify(data));
+      setIsClocked(true);
+    }
+
+  };
+  const checkOut = async () => {
     setIsClocked(false);
-    dispatch(addEndTime({ something: "something" }));
+    let data = JSON.parse(await AsyncStorage.getItem("data"));
+    data["Monday"] = 2;
+    console.log(data);
   };
 
   return (
     <View style={{ justifyContent: "center", alignItems: "center" }}>
       <TouchableOpacity
         onPress={() => {
-          restartData();
+          isClocked ? checkOut() : checkIn();
         }}
         style={styles.container}
       >
