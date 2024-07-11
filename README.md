@@ -36,8 +36,7 @@ To get started with the project, follow these steps:
 
 4. **Run the project:**
    ```bash
-   npx react-native run-android   # For Android
-   npx react-native run-ios       # For iOS
+   npx install
    ```
 
 ## Usage
