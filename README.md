@@ -36,7 +36,7 @@ To get started with the project, follow these steps:
 
 4. **Run the project:**
    ```bash
-   npx install
+   npx start
    ```
 
 ## Usage
