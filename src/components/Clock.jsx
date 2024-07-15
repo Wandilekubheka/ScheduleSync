@@ -5,6 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import dayjs from "dayjs";
 import { timePassed } from "../config/getTimePassed.js";
 import { useSelector } from "react-redux";
+import ThemedText from "./ThemedText.jsx";
 
 const width = Dimensions.get("screen").width * 0.6;
 const Clock = () => {
@@ -30,16 +31,12 @@ const Clock = () => {
           { backgroundColor: darkMode ? theme.grey : theme.white },
         ]}
       >
-        <Text
-          style={[styles.time, { color: darkMode ? theme.white : theme.grey }]}
-        >
+        <ThemedText style={styles.time}>
           {timePassed(startTime, dateTime)}
-        </Text>
-        <Text
-          style={[styles.date, { color: darkMode ? theme.white : theme.grey }]}
-        >
+        </ThemedText>
+        <ThemedText style={styles.date}>
           {dateTime.format("dddd DD, MMMM")}
-        </Text>
+        </ThemedText>
       </View>
     </LinearGradient>
   );

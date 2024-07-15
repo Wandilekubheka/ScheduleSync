@@ -5,6 +5,7 @@ import { theme } from "../config/colors";
 import { data } from "../config/data";
 import { useSelector } from "react-redux";
 import { selectDataHistory } from "../features/userDataSlice";
+import ThemedText from "./ThemedText";
 
 const History = () => {
   const [expanded, setExpanded] = useState(false);
@@ -33,41 +34,13 @@ const History = () => {
         >
           {data_.map(({ date, endTime, startTime }) => (
             <View style={styles.HistoryContainer} key={date}>
-              <Text
-                style={[
-                  styles.HistoryKey,
-                  { color: darkMode ? theme.white : theme.grey },
-                ]}
-              >
-                {date}
-              </Text>
-              <Text
-                style={[
-                  styles.HistoryValue,
-                  { color: darkMode ? theme.white : theme.grey },
-                ]}
-              >
-                {startTime}
-              </Text>
+              <ThemedText style={styles.HistoryKey}>{date}</ThemedText>
+              <ThemedText style={styles.HistoryValue}>{startTime}</ThemedText>
             </View>
           ))}
           <View style={styles.summaryContainer}>
-            <Text
-              style={[
-                styles.summary,
-                { color: darkMode ? theme.white : theme.grey },
-              ]}
-            >
-              Summary
-            </Text>
-            <Text
-              style={[
-                styles.duration,
-                { color: darkMode ? theme.white : theme.grey },
-              ]}
-            >
-              40:00
-            </Text>
+            <ThemedText style={styles.summary}>Summary</ThemedText>
+            <ThemedText style={styles.duration}>40:00</ThemedText>
           </View>
         </ListItem.Accordion>
       </TouchableOpacity>

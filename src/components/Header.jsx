@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { theme } from "../config/colors";
 import { useDispatch, useSelector } from "react-redux";
 import { changeMode } from "../features/themeSlice";
+import ThemedText from "./ThemedText";
 const Header = () => {
   const darkMode = useSelector((state) => state.theme.darkMode);
   const toogleTheme = useDispatch();
@@ -10,16 +11,11 @@ const Header = () => {
   return (
     <View style={styles.container}>
       <Text style={{ padding: 30 }}></Text>
-      <Text
-        style={[styles.heading, { color: darkMode ? theme.white : theme.grey }]}
-      >
-        ScheduleSync
-      </Text>
+      <ThemedText style={styles.heading}>ScheduleSync</ThemedText>
       <TouchableOpacity
         style={styles.toggleButton}
         onPress={() => {
           toogleTheme(changeMode());
-          console.log(darkMode);
         }}
       >
         <Ionicons
