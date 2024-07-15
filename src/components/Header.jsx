@@ -1,9 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { theme } from "../config/colors";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changeMode } from "../features/themeSlice";
 const Header = () => {
   const darkMode = useSelector((state) => state.theme.darkMode);
+  const toogleTheme = useDispatch();
 
   return (
     <View style={styles.container}>
@@ -16,7 +18,8 @@ const Header = () => {
       <TouchableOpacity
         style={styles.toggleButton}
         onPress={() => {
-          console.log(Date());
+          toogleTheme(changeMode());
+          console.log(darkMode);
         }}
       >
         <Ionicons

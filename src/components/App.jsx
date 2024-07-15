@@ -9,7 +9,12 @@ const Root = () => {
   const darkMode = useSelector((state) => state.theme.darkMode);
   console.log(darkMode);
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[
+        styles.container,
+        { backgroundColor: darkMode ? theme.grey : theme.white },
+      ]}
+    >
       <View>
         <StatusBar
           backgroundColor={darkMode ? theme.grey : theme.white}
