@@ -64,7 +64,12 @@ const ActionButton = ({ darkMode }) => {
   };
 
   return (
-    <View style={{ justifyContent: "center", alignItems: "center" }}>
+    <View
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <TouchableOpacity onPress={() => clockButton()} style={styles.container}>
         <LinearGradient
           style={{ borderRadius: 10 }}

@@ -12,7 +12,7 @@ const History = ({ darkMode }) => {
 
   return (
     <View style={styles.container}>
-      {/* <TouchableOpacity onPress={() => setExpanded(!expanded)}>
+      <TouchableOpacity onPress={() => setExpanded(!expanded)}>
         <ListItem.Accordion
           containerStyle={{ backgroundColor: "transparent" }}
           content={
@@ -69,7 +69,7 @@ const History = ({ darkMode }) => {
             </Text>
           </View>
         </ListItem.Accordion>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
     </View>
   );
 };
