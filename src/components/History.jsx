@@ -6,9 +6,10 @@ import { data } from "../config/data";
 import { useSelector } from "react-redux";
 import { selectDataHistory } from "../features/userDataSlice";
 
-const History = ({ darkMode }) => {
+const History = () => {
   const [expanded, setExpanded] = useState(false);
   const data_ = useSelector(selectDataHistory);
+  const darkMode = useSelector((state) => state.theme.darkMode);
 
   return (
     <View style={styles.container}>
