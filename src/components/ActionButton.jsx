@@ -8,7 +8,7 @@ import { timePassed } from "../config/getTimePassed.js";
 
 import dayjs from "dayjs";
 
-const ActionButton = ({ darkMode }) => {
+const ActionButton = () => {
   const [isClocked, setIsClocked] = useState(false);
   const day = dayjs();
   const dayOfWeek = day.format("dddd");

@@ -4,11 +4,14 @@ import { theme } from "../config/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import dayjs from "dayjs";
 import { timePassed } from "../config/getTimePassed.js";
+import { useSelector } from "react-redux";
 
 const width = Dimensions.get("screen").width * 0.6;
-const Clock = ({ darkMode }) => {
+const Clock = () => {
   const [startTime, setStartTime] = useState(dayjs());
   const [dateTime, setDateTime] = useState(dayjs());
+  const darkMode = useSelector((state) => state.theme.darkMode);
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       setDateTime(dayjs());

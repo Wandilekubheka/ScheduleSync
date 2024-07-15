@@ -15,8 +15,8 @@ const Root = () => {
           backgroundColor={darkMode ? theme.grey : theme.white}
           barStyle={darkMode ? "light-content" : "dark-content"}
         />
-        <Header darkMode={darkMode} />
-        <Clock darkMode={darkMode} />
+        <Header />
+        <Clock />
       </View>
       <View style={styles.buttonContainer}>
         <History />
