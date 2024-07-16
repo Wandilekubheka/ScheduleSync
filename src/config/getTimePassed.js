@@ -2,7 +2,8 @@ import dayjs from "dayjs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const timePassed = (start, now) => {
-  return now.subtract(start).format("HH:MM");
+  console.log(start, now);
+  return now.diff(start);
 };
 
 const storeDaysData = (changeInTime, data) => {
@@ -36,6 +37,7 @@ const GetData = (dataJson, type) => {
   } else if (type === "start") {
     return data[dayjs().day()][0];
   } else {
+    console.log("stop");
     return data[dayjs().day()][1];
   }
 };
@@ -45,12 +47,15 @@ const SetData = (dataJson, info, type) => {
   if (type === "timepassed") {
     data[dayjs().day()][2] = info;
   } else if (type === "start") {
+    console.log("Start");
     data[dayjs().day()][0] = info;
   } else {
+    console.log("stop");
+
     data[dayjs().day()][1] = info;
   }
   try {
-    AsyncStorage.setItem("daysInfo", JSON.stringify(data));
+    return AsyncStorage.setItem("daysInfo", JSON.stringify(data));
   } catch (e) {
     console.log(e);
   }

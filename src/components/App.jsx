@@ -19,7 +19,7 @@ const Root = () => {
       >
         <View>
           <Header />
-          <Clock />
+          {/* <Clock /> */}
         </View>
         <View style={styles.buttonContainer}>
           <History />

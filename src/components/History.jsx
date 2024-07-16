@@ -6,6 +6,8 @@ import { data } from "../config/data";
 import { useSelector } from "react-redux";
 import { selectDataHistory } from "../features/userDataSlice";
 import ThemedText from "./ThemedText";
+import { GetData, IfDataDoesntExist } from "../config/getTimePassed";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const History = () => {
   const [expanded, setExpanded] = useState(false);
@@ -38,6 +40,12 @@ const History = () => {
               <ThemedText style={styles.HistoryValue}>{startTime}</ThemedText>
             </View>
           ))}
+          <TouchableOpacity
+            onPress={() => {
+              IfDataDoesntExist();
+            }}
+            style={{ backgroundColor: "red", width: 100, aspectRatio: 1 }}
+          ></TouchableOpacity>
           <View style={styles.summaryContainer}>
             <ThemedText style={styles.summary}>Summary</ThemedText>
             <ThemedText style={styles.duration}>40:00</ThemedText>

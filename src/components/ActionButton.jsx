@@ -2,24 +2,36 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import { theme } from "../config/colors";
-import { IfDataDoesntExist, SetData } from "../config/getTimePassed";
+import {
+  GetData,
+  IfDataDoesntExist,
+  SetData,
+  timePassed,
+} from "../config/getTimePassed";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import dayjs from "dayjs";
 
 const ActionButton = () => {
   const [isClocked, setIsClocked] = useState(false);
+  const [todayInfo, setTodayInfo] = useState();
+  const [clockIn, setClockIn] = useState();
   const updateTime = async () => {
     setIsClocked(!isClocked);
     let data = await AsyncStorage.getItem("daysInfo");
-    console.log(data);
     if (data === null) {
       IfDataDoesntExist();
       data = await AsyncStorage.getItem("daysInfo");
     }
     if (isClocked) {
-      SetData(data, dayjs().day(), "stop");
+      SetData(data, dayjs(), "stop");
+      data = await AsyncStorage.getItem("daysInfo");
     } else {
-      SetData(data, dayjs().day(), "start");
+      SetData(data, dayjs(), "start");
+      data = await AsyncStorage.getItem("daysInfo");
+    }
+    const today = data[dayjs().day];
+    if (today[0] !== 0 && today[1] !== 0) {
+      // timePassed(today[0], today[1]);
     }
   };
 
