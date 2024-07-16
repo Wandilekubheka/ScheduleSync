@@ -29,9 +29,10 @@ const ActionButton = () => {
       SetData(data, dayjs(), "start");
       data = await AsyncStorage.getItem("daysInfo");
     }
-    const today = data[dayjs().day];
-    if (today[0] !== 0 && today[1] !== 0) {
-      // timePassed(today[0], today[1]);
+    const start = GetData(data, "start");
+    const stop = GetData(data, "stop");
+    if (start !== 0 && stop !== 0) {
+      console.log(dayjs(timePassed(start, stop)).format("hh:mm"));
     }
   };
 
