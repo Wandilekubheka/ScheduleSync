@@ -10,8 +10,10 @@ const storeDaysData = (changeInTime, data) => {
   if (day === 6) {
     return;
   }
+};
 
-  const daysData = {
+const IfDataDoesntExist = () => {
+  const data = {
     // day : start:stop:timepassed
     0: [0, 0, 0],
     1: [0, 0, 0],
@@ -21,11 +23,11 @@ const storeDaysData = (changeInTime, data) => {
   };
   try {
     AsyncStorage.setItem("daysInfo", JSON.stringify(data));
+    console.log("set");
   } catch (e) {
     console.log(e);
   }
 };
-
 const GetData = (dataJson, type) => {
   const data = JSON.parse(dataJson);
   console.log(data);
@@ -43,9 +45,9 @@ const SetData = (dataJson, info, type) => {
   if (type === "timepassed") {
     data[dayjs().day()][2] = info;
   } else if (type === "start") {
-    data[dayjs().day()][0] = inf0;
+    data[dayjs().day()][0] = info;
   } else {
-    data[dayjs().day()][1] = inf0;
+    data[dayjs().day()][1] = info;
   }
   try {
     AsyncStorage.setItem("daysInfo", JSON.stringify(data));
@@ -54,4 +56,4 @@ const SetData = (dataJson, info, type) => {
   }
 };
 
-export { SetData, GetData };
+export { SetData, GetData, IfDataDoesntExist };
