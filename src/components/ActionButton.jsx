@@ -2,9 +2,21 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import { theme } from "../config/colors";
+import { SetData } from "../config/getTimePassed";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import dayjs from "dayjs";
 
 const ActionButton = () => {
   const [isClocked, setIsClocked] = useState(false);
+  const updateTime = async () => {
+    setIsClocked(!isClocked);
+    const data = await AsyncStorage.getItem("daysInfo");
+    if (isClocked) {
+      SetData(data, dayjs().day(), "stop");
+    } else {
+      SetData(data, dayjs().day(), "start");
+    }
+  };
 
   return (
     <View
@@ -13,7 +25,7 @@ const ActionButton = () => {
         alignItems: "center",
       }}
     >
-      <TouchableOpacity onPress={() => {}} style={styles.container}>
+      <TouchableOpacity onPress={updateTime} style={styles.container}>
         <LinearGradient
           style={{ borderRadius: 10 }}
           colors={[theme.linearStart, theme.linearEnd]}
