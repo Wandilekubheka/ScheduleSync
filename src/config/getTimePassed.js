@@ -2,7 +2,6 @@ import dayjs from "dayjs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const timePassed = (start, now) => {
-  console.log(start, now);
   return dayjs(now).diff(dayjs(start));
 };
 

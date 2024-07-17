@@ -13,8 +13,6 @@ import dayjs from "dayjs";
 
 const ActionButton = () => {
   const [isClocked, setIsClocked] = useState(false);
-  const [todayInfo, setTodayInfo] = useState();
-  const [clockIn, setClockIn] = useState();
   const updateTime = async () => {
     setIsClocked(!isClocked);
     let data = await AsyncStorage.getItem("daysInfo");
@@ -32,7 +30,7 @@ const ActionButton = () => {
     const start = GetData(data, "start");
     const stop = GetData(data, "stop");
     if (start !== 0 && stop !== 0) {
-      console.log(dayjs(timePassed(start, stop)).format("hh:mm"));
+      console.log(dayjs(timePassed(start, stop)).format());
     }
   };
 
