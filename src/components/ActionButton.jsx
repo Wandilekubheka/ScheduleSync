@@ -24,6 +24,10 @@ const ActionButton = () => {
       IfDataDoesntExist();
       data = await AsyncStorage.getItem("daysInfo");
     }
+
+    if (start !== 0) {
+      return;
+    }
     if (isClocked) {
       SetData(data, dayjs(), "stop");
       data = await AsyncStorage.getItem("daysInfo");
@@ -33,9 +37,6 @@ const ActionButton = () => {
     }
     const start = GetData(data, "start");
     const stop = GetData(data, "stop");
-
-    if (start !== 0 && stop !== 0) {
-    }
   };
 
   return (

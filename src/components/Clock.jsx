@@ -29,7 +29,6 @@ const Clock = () => {
   const getinfo = async () => {
     const info = GetData(await AsyncStorage.getItem("daysInfo"), "start");
     setStartTime(dayjs(info));
-    console.log(startTime);
   };
 
   return (
