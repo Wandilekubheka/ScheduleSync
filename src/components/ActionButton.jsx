@@ -19,7 +19,6 @@ const ActionButton = () => {
 
   const updateTime = async () => {
     payload(toogleClock());
-    console.log(isClocked);
     let data = await AsyncStorage.getItem("daysInfo");
     if (data === null) {
       IfDataDoesntExist();
@@ -36,7 +35,6 @@ const ActionButton = () => {
     const stop = GetData(data, "stop");
 
     if (start !== 0 && stop !== 0) {
-      console.log(dayjs(timePassed(start, stop)).format());
     }
   };
 
