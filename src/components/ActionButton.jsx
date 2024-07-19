@@ -10,11 +10,16 @@ import {
 } from "../config/getTimePassed";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import dayjs from "dayjs";
+import { useDispatch, useSelector } from "react-redux";
+import { toogleClock } from "../features/isClockedSlice";
 
 const ActionButton = () => {
-  const [isClocked, setIsClocked] = useState(false);
+  const isClocked = useSelector((state) => state.clocked.isClocked);
+  const payload = useDispatch();
+
   const updateTime = async () => {
-    setIsClocked(!isClocked);
+    payload(toogleClock());
+    console.log(isClocked);
     let data = await AsyncStorage.getItem("daysInfo");
     if (data === null) {
       IfDataDoesntExist();
@@ -29,6 +34,7 @@ const ActionButton = () => {
     }
     const start = GetData(data, "start");
     const stop = GetData(data, "stop");
+
     if (start !== 0 && stop !== 0) {
       console.log(dayjs(timePassed(start, stop)).format());
     }

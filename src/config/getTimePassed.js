@@ -2,14 +2,11 @@ import dayjs from "dayjs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const timePassed = (start, now) => {
-  return dayjs(now).diff(dayjs(start));
-};
-
-const storeDaysData = (changeInTime, data) => {
-  const day = dayjs().day();
-  if (day === 6) {
-    return;
+  if (start === undefined || now === undefined) {
+    return null;
   }
+
+  return dayjs(now).diff(dayjs(start));
 };
 
 const IfDataDoesntExist = () => {
@@ -31,22 +28,22 @@ const IfDataDoesntExist = () => {
 const GetData = (dataJson, type) => {
   const data = JSON.parse(dataJson);
   if (type === "timepassed") {
-    return data[dayjs().day()][2];
+    return data[dayjs().day() - 1][2];
   } else if (type === "start") {
-    return data[dayjs().day()][0];
+    return data[dayjs().day() - 1][0];
   } else {
-    return data[dayjs().day()][1];
+    return data[dayjs().day() - 1][1];
   }
 };
 
 const SetData = (dataJson, info, type) => {
   const data = JSON.parse(dataJson);
   if (type === "timepassed") {
-    data[dayjs().day()][2] = info;
+    data[dayjs().day() - 1][2] = info;
   } else if (type === "start") {
-    data[dayjs().day()][0] = info;
+    data[dayjs().day() - 1][0] = info;
   } else {
-    data[dayjs().day()][1] = info;
+    data[dayjs().day() - 1][1] = info;
   }
   try {
     return AsyncStorage.setItem("daysInfo", JSON.stringify(data));

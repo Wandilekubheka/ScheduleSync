@@ -7,33 +7,27 @@ import { GetData, timePassed } from "../config/getTimePassed.js";
 import { useSelector } from "react-redux";
 import ThemedText from "./ThemedText.jsx";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import timezone from "dayjs/plugin/timezone.js";
-import utc from "dayjs/plugin/utc"; // ES 2015
 
 const width = Dimensions.get("screen").width * 0.6;
 const Clock = () => {
-  const [startTime, setStartTime] = useState(dayjs());
+  const [startTime, setStartTime] = useState(0);
   const [dateTime, setDateTime] = useState(dayjs());
   const darkMode = useSelector((state) => state.theme.darkMode);
-  dayjs.extend(timezone);
-  dayjs.extend(utc);
+  const clocked = useSelector((state) => state.clocked.isClocked);
 
   useEffect(() => {
     getinfo();
+    console.log(clocked);
 
     const intervalId = setInterval(async () => {
-      if (startTime === 0) {
-        startTime(dayjs());
-      }
       setDateTime(dayjs());
-      console.log(startTime);
     }, 1000);
     return () => clearInterval(intervalId);
   }, []);
   const getinfo = async () => {
-    setStartTime(GetData(await AsyncStorage.getItem("daysInfo"), "start"));
+    const info = GetData(await AsyncStorage.getItem("daysInfo"), "start");
+    setStartTime(info);
   };
-  getinfo;
 
   return (
     <LinearGradient
@@ -46,11 +40,14 @@ const Clock = () => {
           { backgroundColor: darkMode ? theme.grey : theme.white },
         ]}
       >
-        <ThemedText style={styles.time}>
-          {dayjs(timePassed(startTime, dateTime))
-            .add(13, "hours")
-            .format("HH:mm:ss")}
-        </ThemedText>
+        {startTime !== 0 && (
+          <ThemedText style={styles.time}>
+            {dayjs(timePassed(startTime, dateTime))
+              .add(13, "hours")
+              .format("HH:mm:ss")}
+          </ThemedText>
+        )}
+
         <ThemedText style={styles.date}>
           {dateTime.format("dddd DD, MMMM")}
         </ThemedText>
